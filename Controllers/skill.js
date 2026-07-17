@@ -5,6 +5,7 @@ import logger from '../utils/logger.js';
 //add Skill
 export const addSkill = async (req, res, next) => {
     try {
+        const start = Date.now();
         const { skillName, level } = req.body;
 
         if (!skillName || !level) return res.status(403).json({ message: "All fields are required...", success: false })
@@ -15,6 +16,9 @@ export const addSkill = async (req, res, next) => {
         let savedSkill = await Skill.create({
             user: req.user._id, skillName, level
         })
+        const end = Date.now();
+
+        console.log(`Response Time : ${end - start} ms`);
         res.status(201).json({ message: "Skill added successfully...", savedSkill, success: true })
         logger.info(
             `${req.user.email} added skill ${skillName}`
@@ -49,7 +53,9 @@ export const getSkill = async (req, res, next) => {
             user: req.user._id
         })
             .skip(skip)
-            .limit(limit);
+            .limit(limit)
+            .sort({ createdAt: -1 })
+            .lean();
 
         res.json({
             success: true,
@@ -66,6 +72,7 @@ export const getSkill = async (req, res, next) => {
 //update skill
 export const updateSkill = async (req, res, next) => {
     try {
+        const start = Date.now();
         const id = req.params.id;
         const { skillName, level } = req.body;
 
@@ -77,6 +84,9 @@ export const updateSkill = async (req, res, next) => {
             { new: true }
         )
         if (!updatedSkill) return res.status(404).json({ message: "No skill exist...", success: false })
+        const end = Date.now();
+
+        console.log(`Response Time : ${end - start} ms`);
         res.status(200).json({ message: "Skill update successfully...", updatedSkill, success: true })
         logger.info(
             `${req.user.email} updated skill ${updatedSkill.skillName}`

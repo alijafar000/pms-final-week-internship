@@ -14,9 +14,24 @@ import { apiLimiter } from './Middleware/rateLimiter.js';
 import { errorMiddleware } from './Middleware/errorMiddleware.js';
 import swaggerSpec from './Docs/swagger.js';
 import logger from './utils/logger.js';
+import helmet from "helmet";
+import cors from "cors";
+import { apiMonitor } from './Middleware/monitor.js';
 
 
 const app = express();
+
+app.use(helmet());
+
+app.use(
+    cors({
+        origin: "*",
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        allowedHeaders: ["Content-Type", "Auth"]
+    })
+);
+
+app.use(apiMonitor);
 
 app.use(apiLimiter);
 

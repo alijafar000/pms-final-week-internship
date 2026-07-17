@@ -5,6 +5,7 @@ import logger from "../utils/logger.js";
 //add new project
 export const addProject = async (req, res, next) => {
     try {
+        const start = Date.now();
         const { projectName, description, technologiesUsed, category, status } = req.body;
 
         if (projectName == "" || description == "" || technologiesUsed == "" || category == "") return res.status(403).json({
@@ -28,6 +29,9 @@ export const addProject = async (req, res, next) => {
             "Project Added",
             projectName
         );
+        const end = Date.now();
+        console.log(`Response Time : ${end - start} ms`);
+
         res.status(201).json({
             message: "Project add successfully...",
             savedProject,
@@ -56,7 +60,7 @@ export const addProject = async (req, res, next) => {
 
 //get project using pagination
 export const getAllProject = async (req, res) => {
-
+    const start = Date.now();
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 5;
 
@@ -70,7 +74,12 @@ export const getAllProject = async (req, res) => {
         user: req.user._id
     })
         .skip(skip)
-        .limit(limit);
+        .limit(limit)
+        .sort({ createdAt: -1 })
+        .lean();
+
+    const end = Date.now();
+    console.log(`Response Time : ${end - start} ms`);
 
     res.json({
         success: true,
@@ -85,7 +94,7 @@ export const getAllProject = async (req, res) => {
 export const getProjectById = async (req, res) => {
     const id = req.params.id;
 
-    const userProject = await Project.findOne({ _id: id, user: req.user._id });
+    const userProject = await Project.findOne({ _id: id, user: req.user._id }).lean();
     if (!userProject) return res.status(404).json({ message: "No project exists...", success: false })
 
     res.status(200).json({ message: "Project Fetched", userProject, success: true })
@@ -94,6 +103,7 @@ export const getProjectById = async (req, res) => {
 //update project 
 export const updateProject = async (req, res, next) => {
     try {
+        const start = Date.now();
         const id = req.params.id;
 
         const { projectName, description, technologiesUsed, category } = req.body;
@@ -119,6 +129,8 @@ export const updateProject = async (req, res, next) => {
             "Project Updated",
             updatedProject.projectName
         );
+        const end = Date.now();
+        console.log(`Response Time : ${end - start} ms`);
 
         res.status(200).json({
             message: "Project update successfully...",
@@ -136,6 +148,7 @@ export const updateProject = async (req, res, next) => {
 //delete project
 export const deleteProject = async (req, res, next) => {
     try {
+        const start = Date.now();
         const id = req.params.id;
 
         let deletedProject = await Project.findOneAndDelete({
@@ -154,6 +167,8 @@ export const deleteProject = async (req, res, next) => {
             "Project Deleted",
             deletedProject.projectName
         );
+        const end = Date.now();
+        console.log(`Response Time : ${end - start} ms`);
 
         res.status(200).json({
             message: "Project delete successfully...",

@@ -2,6 +2,14 @@
 
 A production-ready **Portfolio Management Backend API** built with **Node.js, Express.js, MongoDB, and JWT Authentication**. This project was developed during my **Backend Development Internship at Codiora** and enhanced over **5 weeks** by implementing authentication, CRUD operations, image upload, role-based authorization, API documentation, validation, logging, and other backend best practices.
 
+## 🚀 Live Demo
+
+**Live API**
+https://portfolio-management-backend-a07k.onrender.com
+
+**Swagger Documentation**
+https://portfolio-management-backend-a07k.onrender.com/api-docs
+
 ---
 
 # 📌 Project Overview
@@ -27,7 +35,7 @@ Users can:
 
 * Node.js
 * Express.js
-* MongoDB
+* MongoDB Atlas
 * Mongoose
 * JWT Authentication
 * bcrypt.js
@@ -35,27 +43,138 @@ Users can:
 * Express Validator
 * Swagger (OpenAPI)
 * Winston Logger
+* Render
 
 ---
 
-# 📂 Folder Structure
+## 🏗️ Project Architecture
 
-```text
-portfolio-management-backend
+```
+portfolio-management-backend/
 │
-├── Controllers
-├── Docs
-├── Middleware
-├── Models
-├── Routes
-├── Utils
-├── uploads
-├── logs
+├── Controllers/
+│   ├── activity.js
+│   ├── dashboard.js
+│   ├── portfolio.js
+│   ├── project.js
+│   ├── skill.js
+│   └── user.js
+│
+├── Middleware/
+│   ├── Auth.js
+│   ├── role.js
+│   ├── upload.js
+│   ├── validatior.js
+│   └── errorMiddleware.js
+│   └── rateLimiter.js
+│   └── monitor.js
+│
+├── Models/
+│   ├── Activity.js
+│   ├── Portfolio.js
+│   ├── Project.js
+│   ├── Skill.js
+│   └── User.js
+│
+├── Routes/
+│   ├── admin.js
+│   ├── activity.js
+│   ├── dashboard.js
+│   ├── portfolio.js
+│   ├── project.js
+│   ├── skill.js
+│   └── user.js
+│
+├── utils/
+│   ├── activityLogger.js
+│   ├── logger.js
+│   └── swagger.js
+│
+├── uploads/
+│   ├── profile/
+│   └── projects/
+|
+├── Docs/
+│   ├── swagger.js
+│
 ├── .env
 ├── .gitignore
 ├── package.json
+├── package-lock.json
 └── server.js
 ```
+
+### 📌 Architecture Flow
+
+```
+Client
+   │
+   ▼
+Routes
+   │
+   ▼
+Authentication & Validation Middleware
+   │
+   ▼
+Controllers
+   │
+   ▼
+Business Logic
+   │
+   ▼
+MongoDB (Mongoose Models)
+   │
+   ▼
+JSON Response
+```
+
+---
+
+## 🔄 Request Lifecycle
+
+```
+Request
+   │
+   ▼
+Express Route
+   │
+   ▼
+Authentication (JWT)
+   │
+   ▼
+Role Authorization
+   │
+   ▼
+Validation
+   │
+   ▼
+Controller
+   │
+   ▼
+Database (MongoDB)
+   │
+   ▼
+Activity Logging
+   │
+   ▼
+Response
+```
+
+---
+
+## 📂 Folder Description
+
+| Folder | Purpose |
+|---------|---------|
+| Controllers | Contains all business logic |
+| Models | MongoDB schemas using Mongoose |
+| Routes | API endpoint definitions |
+| Middleware | Authentication, Authorization, Validation, Error Handling, File Upload |
+| utils | Logger, Activity Logger |
+| Docs |  Swagger configuration |
+| uploads | Stores uploaded profile & project images |
+| server.js | Application entry point |
+| .env | Environment variables |
 
 ---
 
@@ -139,13 +258,45 @@ portfolio-management-backend
 * Role-Based Access
 * Express Validator
 * Centralized Error Handling
+* Helmet
+* API Monitoring
+* CORS
 
 ---
 
-## 📄 API Documentation
+## Future Improvements
+- Frontend Integration
+- Docker Support
+- CI/CD Pipeline
+- Unit Testing
+- Email Verification
+- Password Reset
+- Refresh Token Authentication
 
-Interactive API documentation using Swagger UI.
+---
+## API Documentation
 
+Swagger UI
+
+http://localhost:2000/api-docs
+
+Live
+
+https://portfolio-management-backend-a07k.onrender.com/api-docs
+
+
+## Deployment
+
+Backend is deployed on Render.
+
+Platform:
+- Render
+
+Database:
+- MongoDB Atlas
+
+Documentation:
+- Swagger UI
 ```
 http://localhost:2000/api-docs
 ```
@@ -289,6 +440,24 @@ GET /api/project?page=1&limit=5
 
 ---
 
+## Backup & Recovery Strategy
+
+This project uses MongoDB Atlas as the cloud database.
+
+### Current Backup Strategy
+
+- Database is securely hosted on MongoDB Atlas.
+- Data can be exported manually using MongoDB Compass.
+- Exported backup files can be stored safely for future recovery.
+
+### Recovery Strategy
+
+- Import the exported data back into MongoDB Atlas using MongoDB Compass.
+- Update the MongoDB connection string if required.
+- Restart the backend server after successful restoration.
+- Verify all APIs using Swagger or Postman.
+
+
 # 📌 Authentication
 
 Protected APIs require JWT Token.
@@ -320,7 +489,7 @@ JWT=your_secret_key
 Clone Repository
 
 ```bash
-git clone https://github.com/your-username/portfolio-management-backend.git
+git clone https://github.com/alijafar000/portfolio-management-backend.git
 ```
 
 Install Dependencies
@@ -335,95 +504,6 @@ Run Server
 npm run dev
 ```
 
----
-
-# 📷 API Screenshots
-
-## Swagger UI
-
-```md
-![Swagger](./Screenshots/swagger.png)
-```
-
----
-
-## User Registration
-
-```md
-![Register](./Screenshots/register.png)
-```
-
----
-
-## User Login
-
-```md
-![Login](./Screenshots/login.png)
-```
-
----
-
-## Portfolio APIs
-
-```md
-![Portfolio](./Screenshots/portfolio.png)
-```
-
----
-
-## Project CRUD
-
-```md
-![Projects](./Screenshots/projects.png)
-```
-
----
-
-## Search & Filter
-
-```md
-![Search](./Screenshots/search-filter.png)
-```
-
----
-
-## Pagination
-
-```md
-![Pagination](./Screenshots/pagination.png)
-```
-
----
-
-## Image Upload
-
-```md
-![Upload](./Screenshots/upload.png)
-```
-
----
-
-## Dashboard
-
-```md
-![Dashboard](./Screenshots/dashboard.png)
-```
-
----
-
-## Activity Log
-
-```md
-![Activity](./Screenshots/activity.png)
-```
-
----
-
-## Admin Dashboard
-
-```md
-![Admin](./Screenshots/admin.png)
-```
 
 ---
 

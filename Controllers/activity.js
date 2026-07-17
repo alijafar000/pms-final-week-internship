@@ -1,16 +1,18 @@
 import { Activity } from "../Models/Activity.js";
 
 export const getActivities =
-async (req,res)=>{
+    async (req, res) => {
 
-    const activities =
-    await Activity.find({
-        user:req.user._id
-    })
-    .sort({createdAt:-1});
+        const activities =
+            await Activity.find({
+                user: req.user._id
+            })
+                .sort({ createdAt: -1 })
+                .limit(20)
+                .lean();
 
-    res.json({
-        success:true,
-        activities
-    })
-}
+        res.json({
+            success: true,
+            activities
+        })
+    }

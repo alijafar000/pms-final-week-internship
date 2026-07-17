@@ -5,6 +5,7 @@ import logger from '../utils/logger.js';
 //add portfolio
 export const addPortfolio = async (req, res, next) => {
     try {
+        const start = Date.now();
         const { fullName, email, about, phone, socialLinks } = req.body;
 
         if (!fullName || !email || !about || !phone || !socialLinks) return res.status(403).json({
@@ -21,6 +22,9 @@ export const addPortfolio = async (req, res, next) => {
         let savedPortfolio = await Portfolio.create({
             user: req.user._id, fullName, email, about, phone, socialLinks
         })
+        const end = Date.now();
+
+        console.log(`Response Time : ${end - start} ms`);
         res.status(201).json({ message: "Portfolio added successfully...", savedPortfolio, success: true })
         logger.info(
             `${req.user.email} created portfolio`
@@ -33,7 +37,7 @@ export const addPortfolio = async (req, res, next) => {
 //get portfolio
 export const getPortfolio = async (req, res, next) => {
     try {
-        const userPortfolio = await Portfolio.findOne({ user: req.user._id })
+        const userPortfolio = await Portfolio.findOne({ user: req.user._id }).lean();
 
         if (!userPortfolio) return res.status(404).json({
             message: "No portfolio exists...",
@@ -49,6 +53,7 @@ export const getPortfolio = async (req, res, next) => {
 export const updatePortfolio = async (req, res, next) => {
     // const id = req.params.id;
     try {
+        const start = Date.now();
         const { fullName, email, about, phone, socialLinks } = req.body;
 
         let updatedPortfolio = await Portfolio.findOneAndUpdate({
@@ -69,6 +74,9 @@ export const updatePortfolio = async (req, res, next) => {
             "Portfolio Updated",
             req.user.name
         );
+        const end = Date.now();
+
+        console.log(`Response Time : ${end - start} ms`);
         res.status(200).json({ message: "Portfolio updated successfully...", updatedPortfolio, success: true })
         logger.info(
             `${req.user.email} updated portfolio`

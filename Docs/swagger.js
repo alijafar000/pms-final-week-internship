@@ -10,10 +10,15 @@ const options = {
     },
 
     servers: [
-      {
-        url: "http://localhost:2000",
-      },
-    ],
+  {
+    url: "https://portfolio-management-backend-week-6.onrender.com/",
+    description: "Production Server"
+  },
+  {
+    url: "http://localhost:2000",
+    description: "Local Server"
+  }
+],
 
     components: {
       securitySchemes: {

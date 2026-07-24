@@ -8,14 +8,14 @@ export const addProject = async (req, res, next) => {
         const start = Date.now();
         const { projectName, description, technologiesUsed, category, status } = req.body;
 
-        if (projectName == "" || description == "" || technologiesUsed == "" || category == "") return res.status(403).json({
+        if (projectName == "" || description == "" || technologiesUsed == "" || category == "") return res.status(400).json({
             message: "All fields are required...",
             success: false
         })
 
         let project = await Project.findOne({ projectName, user: req.user._id });
 
-        if (project) return res.json({
+        if (project) return res.status(400).json({
             message: "Project already added...",
             success: false
         })
@@ -45,18 +45,6 @@ export const addProject = async (req, res, next) => {
     }
 
 }
-
-// //get all project
-// export const getAllProject = async (req, res) => {
-//     const userProject = await Project.find({user: req.user._id});
-
-//     if (userProject.length === 0) return res.json({
-//         message: "No project exists...",
-//         success: false
-//     })
-
-//     res.json({ message: "All project fetched...", userProject, success: true })
-// }
 
 //get project using pagination
 export const getAllProject = async (req, res) => {
@@ -278,40 +266,3 @@ export const uploadProjectImage = async (req, res) => {
         success: true
     });
 }
-
-// //filter project
-// export const filterProjects = async (req, res) => {
-
-//     const {
-//         category,
-//         technology,
-//         status
-//     } = req.query;
-
-//     let query = {
-//         user: req.user._id
-//     };
-
-//     if (category) {
-//         query.category = category;
-//     }
-
-//     if (status) {
-//         query.status = status;
-//     }
-
-//     if (technology) {
-//         query.technologiesUsed = {
-//             $in: [technology]
-//         };
-//     }
-
-//     const projects =
-//         await Project.find(query);
-
-//     res.json({
-//         success: true,
-//         count: projects.length,
-//         projects
-//     });
-// }

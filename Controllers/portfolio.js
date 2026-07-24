@@ -8,7 +8,7 @@ export const addPortfolio = async (req, res, next) => {
         const start = Date.now();
         const { fullName, email, about, phone, socialLinks } = req.body;
 
-        if (!fullName || !email || !about || !phone || !socialLinks) return res.status(403).json({
+        if (!fullName || !email || !about || !phone || !socialLinks) return res.status(400).json({
             message: "All fields are required...",
             success: false
         })

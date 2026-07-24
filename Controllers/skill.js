@@ -8,7 +8,7 @@ export const addSkill = async (req, res, next) => {
         const start = Date.now();
         const { skillName, level } = req.body;
 
-        if (!skillName || !level) return res.status(403).json({ message: "All fields are required...", success: false })
+        if (!skillName || !level) return res.status(400).json({ message: "All fields are required...", success: false })
 
         let skill = await Skill.findOne({ user: req.user._id, skillName })
         if (skill) return res.json({ message: "Skill already added...", success: false })

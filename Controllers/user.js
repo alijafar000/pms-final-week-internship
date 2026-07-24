@@ -9,7 +9,7 @@ export const register = async (req, res, next) => {
     try {
         const { name, email, password, role } = req.body;
 
-        if (name == "" || email == "" || password == "") return res.status(403).json({
+        if (name == "" || email == "" || password == "") return res.status(400).json({
             message: "All fields are required..."
         })
 
@@ -41,7 +41,7 @@ export const login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
 
-        if (email == "" || password == "") return res.status(403).json({
+        if (email == "" || password == "") return res.status(400).json({
             message: "All fields are required...",
             success: false
         })
@@ -49,19 +49,22 @@ export const login = async (req, res, next) => {
         //finding user email from db
         const user = await User.findOne({ email });
 
-        if (!user) return res.status(404).json({
-            message: "User not found...",
-            success: false
-        })
+        if (!user) {
+             logger.warn(`Login failed - User not found: ${email}`);
+                return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
 
         const validPassword = await bcrypt.compare(password, user.password);
-        if (!validPassword) return res.status(401).json({
-            message: "Invalid password...",
-            success: false
-        })
-
-        //generating jwt token
-        // const token = jwt.sign({ userId: user._id }, process.env.JWT);
+        if (!validPassword) {
+            logger.warn(`Failed login attempt for ${email}`);
+                return res.status(401).json({
+                success: false,
+                message: "Invalid password"
+            });
+        }
 
         const token = jwt.sign(
             { userId: user._id },

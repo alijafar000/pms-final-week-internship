@@ -11,7 +11,7 @@ const options = {
 
     servers: [
   {
-    url: "https://portfolio-management-backend-week-6.onrender.com/",
+    url: "https://pms-final-week-internship.onrender.com/",
     description: "Production Server"
   },
   {

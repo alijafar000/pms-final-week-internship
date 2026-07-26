@@ -5,10 +5,10 @@ A production-ready **Portfolio Management Backend API** built with **Node.js, Ex
 ## 🚀 Live Demo
 
 **Live API**
-https://portfolio-management-backend-a07k.onrender.com
+https://pms-week-7.onrender.com
 
 **Swagger Documentation**
-https://portfolio-management-backend-a07k.onrender.com/api-docs
+https://pms-week-7.onrender.com/api-docs
 
 ---
 
@@ -264,16 +264,6 @@ Response
 
 ---
 
-## Future Improvements
-- Frontend Integration
-- Docker Support
-- CI/CD Pipeline
-- Unit Testing
-- Email Verification
-- Password Reset
-- Refresh Token Authentication
-
----
 ## API Documentation
 
 Swagger UI
@@ -282,7 +272,7 @@ http://localhost:2000/api-docs
 
 Live
 
-https://portfolio-management-backend-a07k.onrender.com/api-docs
+https://pms-week-7.onrender.com
 
 
 ## Deployment
@@ -489,7 +479,7 @@ JWT=your_secret_key
 Clone Repository
 
 ```bash
-git clone https://github.com/alijafar000/portfolio-management-backend.git
+git clone https://github.com/alijafar000/pms-week-7.git
 ```
 
 Install Dependencies
@@ -562,6 +552,15 @@ npm run dev
 
 ---
 
+### ✅ Week 6
+
+* API Optimization
+* Security Enhancement
+* Backup & Recovery Strategy
+* API Monitoring
+* Code Documentation
+* Final Testing
+
 ### Week 7 Enhancements
 
 - Complete API Testing
@@ -572,6 +571,18 @@ npm run dev
 - Final Documentation & Project Review
 
 ---
+
+## Future Improvements
+- Frontend Integration
+- Docker Support
+- CI/CD Pipeline
+- Unit Testing
+- Email Verification
+- Password Reset
+- Refresh Token Authentication
+
+---
+
 ## API Testing
 
 The complete backend API has been tested using:
@@ -588,6 +599,57 @@ Tested Scenarios:
 - Unauthorized Access
 - Error Responses
 - API Monitoring
+
+
+---
+## Project Status
+
+✅ Internship Project Completed
+
+This Portfolio Management REST API was developed during an 8-week Backend Development Internship at Codiora Software House. The project is production-ready, fully tested, deployed on Render, and documented using Swagger.
+
+---
+## Final Features
+
+- JWT Authentication
+- Role-Based Authorization
+- Portfolio CRUD
+- Project CRUD
+- Skills CRUD
+- Dashboard APIs
+- Admin APIs
+- Activity Logging
+- Search & Filter
+- Pagination
+- File Upload
+- Rate Limiting
+- Helmet Security
+- Input Validation
+- API Monitoring
+- Winston Logging
+- Centralized Error Handling
+- Swagger API Documentation
+- Render Deployment
+
+---
+
+## Internship Progress
+
+Week 1 – Portfolio Management API
+
+Week 2 – CRUD Enhancements
+
+Week 3 – Authentication & Authorization
+
+Week 4 – Search, Filter, Pagination & Security
+
+Week 5 – Deployment, Validation & Documentation
+
+Week 6 – Performance Optimization & Monitoring
+
+Week 7 – Testing, Quality Assurance & Final Documentation
+
+Week 8 – Final Submission & Project Presentation
 
 # 👨‍💻 Author
 
